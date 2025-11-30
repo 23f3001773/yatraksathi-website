@@ -1,19 +1,24 @@
+"use client"; // <--- Ye line bahut zaroori hai popup ke liye
+
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
+import RequestModal from './RequestModal'; // <--- Tumhara banaya hua Modal import kiya
 
 const Hero = () => {
+  // Popup kholne aur band karne ka control (State)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className="relative w-full h-[600px] flex items-center justify-center">
       
       {/* 1. Background Image */}
-      {/* आप यहाँ अपनी इमेज का URL डाल सकते हैं */}
       <div 
         className="absolute inset-0 w-full h-full bg-cover bg-center"
         style={{ 
           backgroundImage: "url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop')" 
         }}
       >
-        {/* Dark Overlay (ताकि टेक्स्ट साफ़ दिखे) */}
+        {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black/50"></div>
       </div>
 
@@ -45,23 +50,31 @@ const Hero = () => {
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           
-          {/* Book Now Button */}
+          {/* Book Now Button (Page Change karega) */}
           <Link href="/contact">
             <button className="w-full sm:w-auto bg-[#ea2330] hover:bg-[#d91f2c] text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105">
               Book Now
             </button>
           </Link>
 
-          {/* Call Now Button */}
-          <Link href="tel:+911234567890">
-            <button className="w-full sm:w-auto bg-transparent border-2 border-white hover:bg-white hover:text-black text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all">
-              Call Now
-            </button>
-          </Link>
+          {/* Request a Call Button (Popup kholega) */}
+          <button 
+            onClick={() => setIsModalOpen(true)} // <--- Yahan click hone par Modal khulega
+            className="w-full sm:w-auto bg-transparent border-2 border-white hover:bg-white hover:text-black text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105"
+          >
+            Request a Call
+          </button>
 
         </div>
 
       </div>
+
+      {/* 3. Popup Modal Component Yahan Load Hoga */}
+      <RequestModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
+
     </div>
   );
 };

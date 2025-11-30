@@ -10,7 +10,7 @@ const Packages = () => {
       title: "Varanasi Ganga Darshan",
       image: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?q=80&w=2076&auto=format&fit=crop",
       duration: "2 Days / 1 Night",
-      price: "₹2,999",
+      
       location: "Varanasi, UP"
     },
     {
@@ -18,7 +18,7 @@ const Packages = () => {
       title: "Ayodhya Ram Mandir Tour",
       image: "/Ayodhya.jpg", // Ayodhya theme
       duration: "1 Day / Same Day",
-      price: "₹1,499",
+      
       location: "Ayodhya, UP"
     },
     {
@@ -26,7 +26,7 @@ const Packages = () => {
       title: "Chardham Yatra Package",
       image: "Chardham.jpg", // Himalayas
       duration: "10 Days / 9 Nights",
-      price: "₹25,999",
+      
       location: "Uttarakhand"
     },
     {
@@ -34,7 +34,7 @@ const Packages = () => {
       title: "Goa Beach Holiday",
       image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?q=80&w=1974&auto=format&fit=crop",
       duration: "4 Days / 3 Nights",
-      price: "₹12,500",
+      
       location: "Goa, India"
     }
   ];
@@ -53,7 +53,7 @@ const Packages = () => {
         {/* Grid Container */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {packages.map((pkg) => (
-            <div key={pkg.id} className="bg-red-200 rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 group">
+            <div key={pkg.id} className="bg-red-500 rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 group">
               
               {/* Image Section */}
               <div className="relative h-48 w-full overflow-hidden">
@@ -74,13 +74,13 @@ const Packages = () => {
                 
                 <div className="flex justify-between items-center mt-4">
                   <div>
-                    <span className="text-xs text-gray-500 block">Starting from</span>
+                    
                     <span className="text-xl font-bold text-[#ea2330]">{pkg.price}</span>
                   </div>
                   
                   {/* ID के हिसाब से अलग पेज खुलेगा */}
 <Link href={`/packages/${pkg.id}`}>
-                    <button className="bg-gray-900 hover:bg-[#ea2330] text-white text-sm font-medium py-2 px-4 rounded transition-colors">
+                    <button className="bg-gray-900 hover:bg-[#ea2330] text-white text-sm font-medium py-2 px-4 rounded transition-transform transform hover:scale-105">
                       View Details
                     </button>
                   </Link>
@@ -93,7 +93,7 @@ const Packages = () => {
 
         {/* View All Button */}
         <div className="text-center mt-12">
-          <Link href="/packages" className="inline-block border-2 border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white font-bold py-2 px-8 rounded-full transition-all">
+          <Link href="/packages" className="inline-block border-2 border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white font-bold py-2 px-8 rounded-full transition-transform transform hover:scale-105">
             View All Packages
           </Link>
         </div>

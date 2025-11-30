@@ -56,7 +56,7 @@ const Features = () => {
   ];
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-red-500">
       <div className="max-w-[1200px] mx-auto px-4">
         
         {/* Title */}
@@ -70,7 +70,7 @@ const Features = () => {
           {features.map((feature) => (
             <div key={feature.id} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow text-center border border-gray-100 flex flex-col items-center">
               
-              <div className="mb-4 bg-red-50 p-3 rounded-full">
+              <div className="mb-4 bg-white p-3 rounded-full">
                 {feature.icon}
               </div>
               

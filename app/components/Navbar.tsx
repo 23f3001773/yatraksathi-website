@@ -53,7 +53,7 @@ const Navbar = () => {
               Hotels
             </Link>
             <Link href="/taxi" className="text-white hover:text-[#ea2330] font-medium transition">
-              Taxi
+              Cab
             </Link>
             <Link href="/contact" className="px-4 py-2 bg-[#ea2330] text-white rounded-md font-medium hover:bg-red-700 transition">
               Contact Us
