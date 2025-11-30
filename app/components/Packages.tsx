@@ -3,39 +3,43 @@ import React from 'react';
 
 const Packages = () => {
   
-  // पैकेज डेटा (बाद में यह डेटाबेस से आ सकता है)
+  // Updated Package Data with Subtitles
   const packages = [
     {
       id: 1,
-      title: "Varanasi Ganga Darshan",
-      image: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?q=80&w=2076&auto=format&fit=crop",
+      title: "VARANASI-KASHI-BANARAS",
+      subtitle: "Tour Package’s",
+      image: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?q=80&w=2076&auto=format&fit=crop", // Varanasi Image
       duration: "2 Days / 1 Night",
-      
-      location: "Varanasi, UP"
+      location: "Varanasi, UP",
+      price: "₹4,999" // Example Price
     },
     {
       id: 2,
-      title: "Ayodhya Ram Mandir Tour",
-      image: "/Ayodhya.jpg", // Ayodhya theme
-      duration: "1 Day / Same Day",
-      
-      location: "Ayodhya, UP"
+      title: "GOLDEN TRIANGLE",
+      subtitle: "Varanasi Ayodhya Prayagraj Tour Package",
+      image: "/Ayodhya.jpg", // Make sure this image exists in public folder
+      duration: "4 Days / 3 Nights",
+      location: "Ayodhya, UP",
+      price: "₹8,500"
     },
     {
       id: 3,
-      title: "Chardham Yatra Package",
-      image: "Chardham.jpg", // Himalayas
-      duration: "10 Days / 9 Nights",
-      
-      location: "Uttarakhand"
+      title: "VARANASI AYODHYA",
+      subtitle: "3 Days Tour Package’s",
+      image: "https://images.unsplash.com/photo-1588661601662-7389c9e830e3?q=80&w=2070&auto=format&fit=crop", // Ayodhya/Varanasi Mix
+      duration: "3 Days / 2 Nights",
+      location: "UP Tourism",
+      price: "₹6,000"
     },
     {
       id: 4,
-      title: "Goa Beach Holiday",
-      image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?q=80&w=1974&auto=format&fit=crop",
-      duration: "4 Days / 3 Nights",
-      
-      location: "Goa, India"
+      title: "DIVYA DHAM YATRA",
+      subtitle: "Varanasi Ayodhya Prayagraj & Gaya Tour Packages",
+      image: "https://images.unsplash.com/photo-1598696564619-75a8947b4d9a?q=80&w=2070&auto=format&fit=crop", // Spiritual Image
+      duration: "6 Days / 5 Nights",
+      location: "India Spiritual",
+      price: "₹12,000"
     }
   ];
 
@@ -45,7 +49,7 @@ const Packages = () => {
         
         {/* Section Heading */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3">Popular Tour Packages</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3">Our Best Tour Packages</h2>
           <p className="text-gray-500">Explore the best destinations with comfort and best prices</p>
           <div className="w-20 h-1 bg-[#ea2330] mx-auto mt-4 rounded-full"></div>
         </div>
@@ -53,10 +57,11 @@ const Packages = () => {
         {/* Grid Container */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {packages.map((pkg) => (
-            <div key={pkg.id} className="bg-red-500 rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 group">
+            <div key={pkg.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 group">
               
               {/* Image Section */}
               <div className="relative h-48 w-full overflow-hidden">
+                {/* Note: src me pkg.image use karein */}
                 <img 
                   src={pkg.image} 
                   alt={pkg.title} 
@@ -70,17 +75,29 @@ const Packages = () => {
               {/* Content Section */}
               <div className="p-5">
                 <div className="text-xs text-[#ea2330] font-bold mb-1 uppercase tracking-wider">{pkg.location}</div>
-                <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-1">{pkg.title}</h3>
                 
-                <div className="flex justify-between items-center mt-4">
+                {/* --- TITLE & SUBTITLE CHANGE START --- */}
+                
+                {/* Main Title (Bada) */}
+                <h3 className="text-lg font-bold text-gray-800 leading-tight">{pkg.title}</h3>
+                
+                {/* Subtitle (Chhota aur Grey) */}
+                {pkg.subtitle && (
+                  <p className="text-sm text-gray-500 mt-1 font-medium lowercase first-letter:capitalize">
+                    {pkg.subtitle}
+                  </p>
+                )}
+                
+                {/* --- TITLE & SUBTITLE CHANGE END --- */}
+
+                <div className="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
                   <div>
-                    
+                    <span className="text-xs text-gray-500 block">Starting from</span>
                     <span className="text-xl font-bold text-[#ea2330]">{pkg.price}</span>
                   </div>
                   
-                  {/* ID के हिसाब से अलग पेज खुलेगा */}
-<Link href={`/packages/${pkg.id}`}>
-                    <button className="bg-gray-900 hover:bg-[#ea2330] text-white text-sm font-medium py-2 px-4 rounded transition-transform transform hover:scale-105">
+                  <Link href={`/packages/${pkg.id}`}>
+                    <button className="bg-gray-900 hover:bg-[#ea2330] text-white text-sm font-medium py-2 px-4 rounded transition-colors duration-300">
                       View Details
                     </button>
                   </Link>
@@ -93,7 +110,7 @@ const Packages = () => {
 
         {/* View All Button */}
         <div className="text-center mt-12">
-          <Link href="/packages" className="inline-block border-2 border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white font-bold py-2 px-8 rounded-full transition-transform transform hover:scale-105">
+          <Link href="/packages" className="inline-block border-2 border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white font-bold py-2 px-8 rounded-full transition-all duration-300">
             View All Packages
           </Link>
         </div>
