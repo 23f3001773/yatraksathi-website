@@ -53,7 +53,7 @@ const Packages = () => {
         {/* Grid Container */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {packages.map((pkg) => (
-            <div key={pkg.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 group">
+            <div key={pkg.id} className="bg-red-200 rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 group">
               
               {/* Image Section */}
               <div className="relative h-48 w-full overflow-hidden">

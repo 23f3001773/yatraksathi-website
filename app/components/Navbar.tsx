@@ -7,9 +7,9 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50">
+    <nav className="bg-black shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+        <div className="flex justify-between h-20">
           
           {/* ---------------- LOGO SECTION ---------------- */}
           <div className="flex-shrink-0 flex items-center">
@@ -18,30 +18,41 @@ const Navbar = () => {
               <img 
                 src="/logo.png" 
                 alt="YatraKsathi Logo" 
-                className="h-10 w-auto" 
+                className="h-20 w-auto" 
               />
               
-              <h1 className="text-2xl md:text-3xl font-extrabold tracking-tighter text-gray-900">
-                yatra<span className="text-[#ea2330]">ksathi</span><span className="text-black">.</span>
-              </h1>
+              <h1
+  className="text-3xl md:text-4xl font-extrabold tracking-tighter"
+  style={{ fontFamily: "'Playfair Display', serif"}}
+>
+  <span className="text-white">YAत्रा</span>
+  <span
+    className="text-[#ea2330]"
+    style={{ fontFamily: "'Playfair Display', serif" }}
+  >
+    {" "}k SAथी
+  </span>
+</h1>
+
+              
             </Link>
           </div>
 
           {/* ---------------- DESKTOP MENU ---------------- */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-[#ea2330] font-medium transition">
+            <Link href="/" className="text-white hover:text-[#ea2330] font-medium transition">
               Home
             </Link>
-            <Link href="/about" className="text-gray-700 hover:text-[#ea2330] font-medium transition">
+            <Link href="/about" className="text-white hover:text-[#ea2330] font-medium transition">
               About
             </Link>
-            <Link href="/packages" className="text-gray-700 hover:text-[#ea2330] font-medium transition">
+            <Link href="/packages" className="text-white hover:text-[#ea2330] font-medium transition">
               Packages
             </Link>
-            <Link href="/hotels" className="text-gray-700 hover:text-[#ea2330] font-medium transition">
+            <Link href="/hotels" className="text-white hover:text-[#ea2330] font-medium transition">
               Hotels
             </Link>
-            <Link href="/taxi" className="text-gray-700 hover:text-[#ea2330] font-medium transition">
+            <Link href="/taxi" className="text-white hover:text-[#ea2330] font-medium transition">
               Taxi
             </Link>
             <Link href="/contact" className="px-4 py-2 bg-[#ea2330] text-white rounded-md font-medium hover:bg-red-700 transition">
