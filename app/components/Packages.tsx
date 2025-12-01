@@ -3,7 +3,7 @@ import React from 'react';
 
 const Packages = () => {
   
-  // Updated Package Data with Subtitles
+  // Updated Package Data
   const packages = [
     {
       id: 1,
@@ -12,13 +12,13 @@ const Packages = () => {
       image: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?q=80&w=2076&auto=format&fit=crop", // Varanasi Image
       duration: "2 Days / 1 Night",
       location: "Varanasi, UP",
-      price: "₹4,999" // Example Price
+      price: "₹4,999" 
     },
     {
       id: 2,
       title: "GOLDEN TRIANGLE",
       subtitle: "Varanasi Ayodhya Prayagraj Tour Package",
-      image: "/Ayodhya.jpg", // Make sure this image exists in public folder
+      image: "/Ayodhya.jpg", // Make sure image exists
       duration: "4 Days / 3 Nights",
       location: "Ayodhya, UP",
       price: "₹8,500"
@@ -61,7 +61,6 @@ const Packages = () => {
               
               {/* Image Section */}
               <div className="relative h-48 w-full overflow-hidden">
-                {/* Note: src me pkg.image use karein */}
                 <img 
                   src={pkg.image} 
                   alt={pkg.title} 
@@ -79,11 +78,12 @@ const Packages = () => {
                 {/* --- TITLE & SUBTITLE CHANGE START --- */}
                 
                 {/* Main Title (Bada) */}
-                <h3 className="text-lg font-bold text-gray-800 leading-tight">{pkg.title}</h3>
+                <h3 className="text-lg font-bold text-gray-800 leading-tight uppercase">{pkg.title}</h3>
                 
-                {/* Subtitle (Chhota aur Grey) */}
+                {/* Subtitle (Chhota aur har word ka pehla letter Capital) */}
                 {pkg.subtitle && (
-                  <p className="text-sm text-gray-500 mt-1 font-medium lowercase first-letter:capitalize">
+                  <p className="text-sm text-gray-500 mt-1 font-medium capitalize">
+                    {/* 'capitalize' class har word ka pehla letter bada kar degi */}
                     {pkg.subtitle}
                   </p>
                 )}
