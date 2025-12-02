@@ -1,56 +1,63 @@
 "use client";
 import React from 'react';
+import { useRouter } from 'next/navigation'; // ✅ Ye Import zaroori hai
 
-const PaymentButton = () => {
+interface PaymentProps {
+  amount: number;
+  packageName: string;
+  userDetails?: {
+    name: string;
+    email: string;
+    phone: string;
+  };
+}
 
-  // 1. Script Load karne ka function
+const PaymentButton: React.FC<PaymentProps> = ({ amount, packageName, userDetails }) => {
+  const router = useRouter(); // ✅ Router initialize karo
+
   const loadScript = (src: string) => {
     return new Promise((resolve) => {
       const script = document.createElement('script');
       script.src = src;
-      script.onload = () => {
-        resolve(true);
-      };
-      script.onerror = () => {
-        resolve(false);
-      };
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
       document.body.appendChild(script);
     });
   };
 
-  // 2. Payment Handle karne ka function
   const handlePayment = async () => {
     const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js');
 
     if (!res) {
-      alert('Razorpay SDK failed to load. Are you online?');
+      alert('Razorpay load nahi hua.');
       return;
     }
 
-    // Yaha payment ke options set karo
     const options = {
-      key: "rzp_test_RlYzzHnL7252Cb", // Yaha apni Test Key ID daalo (Ex: rzp_test_...)
-      amount: 50, // Amount paise me hota hai (50000 paise = 500 Rupaye)
+      key: "rzp_live_RmehcR6TekB2w9", // Aapki Key
+      amount: amount * 100,
       currency: "INR",
       name: "YatraKsathi",
-      description: "Test Transaction",
-      image: "/logo.png", // Tumhari company ka logo
+      description: `Booking for ${packageName}`,
+      image: "/logo.png",
+      
+      // ✅ SUCCESS HANDLE KARNE KA NAYA TARIKA
       handler: function (response: any) {
-        // Payment success hone par kya karna hai
-        alert(`Payment Successful! Payment ID: ${response.razorpay_payment_id}`);
-        console.log(response);
+        // Alert hata diya, ab hum redirect karenge
+        // Hum data ko URL me bhej rahe hain taaki receipt page usko padh sake
+        router.push(`/payment-success?payment_id=${response.razorpay_payment_id}&amount=${amount * 100}&package=${packageName}`);
       },
+      
       prefill: {
-        name: "Rohit User", // User ka naam (Form se le sakte ho)
-        email: "rohit@example.com",
-        contact: "9999999999",
+        name: userDetails?.name || "",
+        email: userDetails?.email || "",
+        contact: userDetails?.phone || "",
       },
       theme: {
-        color: "#ea2330", // Tumhari website ka Lal rang
+        color: "#ea2330",
       },
     };
 
-    // Payment Window open karna
     const paymentObject = new (window as any).Razorpay(options);
     paymentObject.open();
   };
@@ -58,9 +65,9 @@ const PaymentButton = () => {
   return (
     <button 
       onClick={handlePayment}
-      className="bg-[#ea2330] text-white font-bold py-2 px-6 rounded-full hover:bg-red-700 transition"
+      className="bg-[#ea2330] text-white font-bold py-2 px-6 rounded-full hover:bg-red-700 transition transform hover:scale-105 shadow-lg"
     >
-      Book Now (₹500)
+      Book Now (₹{amount})
     </button>
   );
 };
