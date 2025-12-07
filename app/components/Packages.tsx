@@ -9,37 +9,41 @@ const Packages = () => {
       id: 1,
       title: "VARANASI-KASHI-BANARAS",
       subtitle: "Tour Package’s",
-      image: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?q=80&w=2076&auto=format&fit=crop", // Varanasi Image
+      image: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?q=80&w=2076&auto=format&fit=crop", 
       duration: "2 Days / 1 Night",
       location: "Varanasi, UP",
-      price: "₹4,999" 
+      price: "₹4,999",
+      link: "/packages/1" // बाकियों के लिए पुराना लिंक
     },
     {
       id: 2,
       title: "GOLDEN TRIANGLE",
       subtitle: "Varanasi Ayodhya Prayagraj Tour Package",
-      image: "/Ayodhya.jpg", // Make sure image exists
+      image: "/Ayodhya.jpg", 
       duration: "4 Days / 3 Nights",
       location: "Ayodhya, UP",
-      price: "₹8,500"
+      price: "₹8,500",
+      link: "/golden-triangle" // ✅ यहाँ मैंने आपके नए पेज का लिंक डाल दिया है
     },
     {
       id: 3,
       title: "VARANASI AYODHYA",
       subtitle: "3 Days Tour Package’s",
-      image: "https://images.unsplash.com/photo-1588661601662-7389c9e830e3?q=80&w=2070&auto=format&fit=crop", // Ayodhya/Varanasi Mix
+      image: "https://images.unsplash.com/photo-1588661601662-7389c9e830e3?q=80&w=2070&auto=format&fit=crop", 
       duration: "3 Days / 2 Nights",
       location: "UP Tourism",
-      price: "₹6,000"
+      price: "₹6,000",
+      link: "/packages/3" // बाकियों के लिए पुराना लिंक
     },
     {
       id: 4,
       title: "DIVYA DHAM YATRA",
       subtitle: "Varanasi Ayodhya Prayagraj & Gaya Tour Packages",
-      image: "https://images.unsplash.com/photo-1598696564619-75a8947b4d9a?q=80&w=2070&auto=format&fit=crop", // Spiritual Image
+      image: "https://images.unsplash.com/photo-1598696564619-75a8947b4d9a?q=80&w=2070&auto=format&fit=crop", 
       duration: "6 Days / 5 Nights",
       location: "India Spiritual",
-      price: "₹12,000"
+      price: "₹12,000",
+      link: "/packages/4" // बाकियों के लिए पुराना लिंक
     }
   ];
 
@@ -75,32 +79,30 @@ const Packages = () => {
               <div className="p-5">
                 <div className="text-xs text-[#ea2330] font-bold mb-1 uppercase tracking-wider">{pkg.location}</div>
                 
-                {/* --- TITLE & SUBTITLE CHANGE START --- */}
-                
-                {/* Main Title (Bada) */}
+                {/* Main Title */}
                 <h3 className="text-lg font-bold text-gray-800 leading-tight uppercase">{pkg.title}</h3>
                 
-                {/* Subtitle (Chhota aur har word ka pehla letter Capital) */}
+                {/* Subtitle */}
                 {pkg.subtitle && (
                   <p className="text-sm text-gray-500 mt-1 font-medium capitalize">
-                    {/* 'capitalize' class har word ka pehla letter bada kar degi */}
                     {pkg.subtitle}
                   </p>
                 )}
                 
-                {/* --- TITLE & SUBTITLE CHANGE END --- */}
-
                 <div className="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
                   <div>
                     <span className="text-xs text-gray-500 block">Starting from</span>
                     <span className="text-xl font-bold text-[#ea2330]">{pkg.price}</span>
                   </div>
                   
-                  <Link href={`/packages/${pkg.id}`}>
+                  {/* --- LINK UPDATED HERE --- */}
+                  <Link href={pkg.link}>
                     <button className="bg-gray-900 hover:bg-[#ea2330] text-white text-sm font-medium py-2 px-4 rounded transition-colors duration-300">
                       View Details
                     </button>
                   </Link>
+                  {/* ------------------------- */}
+                  
                 </div>
               </div>
 
