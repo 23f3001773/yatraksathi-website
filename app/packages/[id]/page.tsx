@@ -1,11 +1,9 @@
-"use client";
 import React from 'react';
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 
-// ये सारा डेटा यहाँ है (बाद में डेटाबेस से भी आ सकता है)
+// --- DATA SECTION ---
 const packagesData = [
   {
     id: 1,
@@ -60,11 +58,22 @@ const packagesData = [
   }
 ];
 
-export default function PackageDetail() {
-  const params = useParams();
+// --- STATIC PARAMS (Build Time) ---
+// यह फंक्शन सबसे जरूरी है static export के लिए
+export async function generateStaticParams() {
+  return packagesData.map((pkg) => ({
+    id: pkg.id.toString(),
+  }));
+}
+
+// --- MAIN PAGE COMPONENT ---
+// हमने 'use client' हटा दिया है और इसे async बना दिया है
+export default async function PackageDetail({ params }: { params: Promise<{ id: string }> }) {
   
-  // ID के आधार पर सही पैकेज ढूंढेगा
-  const packageId = parseInt(params.id as string);
+  // Next.js 15 में params को await करना पड़ता है
+  const { id } = await params;
+  const packageId = parseInt(id);
+  
   const pkg = packagesData.find((p) => p.id === packageId);
 
   // अगर पैकेज नहीं मिला (Error Handling)
@@ -72,9 +81,11 @@ export default function PackageDetail() {
     return (
       <main>
         <Navbar />
-        <div className="text-center py-20">
-          <h2 className="text-2xl font-bold">Package Not Found!</h2>
-          <Link href="/packages" className="text-blue-500 underline">Go Back</Link>
+        <div className="text-center py-20 min-h-[50vh] flex flex-col justify-center items-center">
+          <h2 className="text-2xl font-bold text-gray-800">Package Not Found!</h2>
+          <Link href="/packages" className="mt-4 text-white bg-red-600 px-4 py-2 rounded hover:bg-red-700">
+            View All Packages
+          </Link>
         </div>
         <Footer />
       </main>
@@ -85,7 +96,7 @@ export default function PackageDetail() {
     <main className="bg-gray-50 min-h-screen">
       <Navbar />
 
-      {/* 1. Hero Image Section */}
+      {/* Hero Image Section */}
       <div className="relative h-[400px] w-full">
         <img src={pkg.image} alt={pkg.title} className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
@@ -94,12 +105,10 @@ export default function PackageDetail() {
       </div>
 
       <div className="max-w-[1000px] mx-auto px-4 py-12">
-        
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           
-          {/* LEFT: Details & Itinerary (Takes 2 columns) */}
+          {/* LEFT: Details & Itinerary */}
           <div className="md:col-span-2 space-y-8">
-            
             {/* Overview */}
             <div className="bg-white p-6 rounded-xl shadow-sm">
               <h2 className="text-2xl font-bold text-gray-800 mb-4">Overview</h2>
@@ -110,7 +119,7 @@ export default function PackageDetail() {
               </div>
             </div>
 
-            {/* Itinerary (Day Wise Plan) */}
+            {/* Itinerary */}
             <div className="bg-white p-6 rounded-xl shadow-sm">
               <h2 className="text-2xl font-bold text-gray-800 mb-6">Trip Itinerary</h2>
               <div className="space-y-6">
@@ -120,7 +129,6 @@ export default function PackageDetail() {
                       <div className="w-8 h-8 bg-[#ea2330] text-white rounded-full flex items-center justify-center font-bold text-sm shrink-0">
                         {index + 1}
                       </div>
-                      {/* Connecting Line (except last item) */}
                       {index !== pkg.itinerary.length - 1 && (
                         <div className="w-0.5 h-full bg-gray-200 mt-1"></div>
                       )}
@@ -133,10 +141,9 @@ export default function PackageDetail() {
                 ))}
               </div>
             </div>
-
           </div>
 
-          {/* RIGHT: Booking Card (Sticky) */}
+          {/* RIGHT: Booking Card */}
           <div className="md:col-span-1">
             <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 sticky top-24">
               <p className="text-gray-500 text-sm">Starting from</p>
@@ -144,30 +151,23 @@ export default function PackageDetail() {
                 <span className="text-3xl font-bold text-[#ea2330]">{pkg.price}</span>
                 <span className="text-gray-400 text-sm mb-1">/ per person</span>
               </div>
-
               <div className="space-y-3">
                 <Link href={`https://wa.me/919876543210?text=I am interested in ${pkg.title} package.`}>
                   <button className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition-colors">
                     <span>Chat on WhatsApp</span>
                   </button>
                 </Link>
-
                 <Link href="/contact">
                   <button className="w-full bg-[#ea2330] hover:bg-[#d91f2c] text-white font-bold py-3 rounded-lg transition-colors shadow-md">
                     Book Now
                   </button>
                 </Link>
               </div>
-
-              <p className="text-xs text-center text-gray-400 mt-4">
-                *Prices may vary based on season and group size.
-              </p>
             </div>
           </div>
 
         </div>
       </div>
-
       <Footer />
     </main>
   );
