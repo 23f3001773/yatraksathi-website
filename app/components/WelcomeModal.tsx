@@ -5,7 +5,7 @@ import { useState } from "react";
 import { db } from "../firebase"; 
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
-const WelcomeModal = ({ onClose }) => {
+const WelcomeModal = ({ onClose }: any) => {
   const [isOpen, setIsOpen] = useState(true); // Modal dikhana hai ya nahi
   const [status, setStatus] = useState("");   // Success/Error msg ke liye
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -15,7 +15,7 @@ const WelcomeModal = ({ onClose }) => {
     if (onClose) onClose();
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsSubmitting(true);
     setStatus("Processing...");
