@@ -3,9 +3,10 @@ import "./globals.css"; // Ye line zaroori hai taki design (Tailwind) kaam kare
 // 👇 1. WhatsApp Button Import kiya
 import WhatsAppBtn from "./components/WhatsAppBtn";
 
+// 👇 Yahan maine Title aur Description change kar diya hai
 export const metadata: Metadata = {
-  title: "Yatra Clone",
-  description: "Travel Website Clone",
+  title: "Yatra K Sathi - Best Tour & Travel Agency",
+  description: "Book affordable tour packages for Varanasi, Ayodhya, Goa, and Char Dham Yatra with Yatra K Sathi. Trusted & Comfort Travel.",
 };
 
 export default function RootLayout({
