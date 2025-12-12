@@ -1,12 +1,21 @@
 import type { Metadata } from "next";
-import "./globals.css"; // Ye line zaroori hai taki design (Tailwind) kaam kare
-// 👇 1. WhatsApp Button Import kiya
+import "./globals.css"; 
+// 👇 Tumhara WhatsApp Button
 import WhatsAppBtn from "./components/WhatsAppBtn";
 
-// 👇 Yahan maine Title aur Description change kar diya hai
+// 👇 1. Yahan maine SEO aur Social Media ki settings perfect kar di hain
 export const metadata: Metadata = {
   title: "Yatra K Sathi - Best Tour & Travel Agency",
   description: "Book affordable tour packages for Varanasi, Ayodhya, Goa, and Char Dham Yatra with Yatra K Sathi. Trusted & Comfort Travel.",
+  
+  // 👇 Jab WhatsApp/FB par link share karoge to ye dikhega
+  openGraph: {
+    title: "Yatra K Sathi - Best Tour & Travel Agency",
+    description: "Plan your dream yatra to Varanasi, Ayodhya & more with best deals.",
+    siteName: "Yatra K Sathi",
+    type: "website",
+    locale: "en_IN", // Indian English settings
+  },
 };
 
 export default function RootLayout({
@@ -17,10 +26,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* Main Website Content */}
+        {/* Main Website Content (Pages) */}
         {children}
         
-        {/* 👇 2. WhatsApp Button yahan lagaya taki har page par dikhe */}
+        {/* 👇 WhatsApp Button har page par dikhega */}
         <WhatsAppBtn />
       </body>
     </html>
