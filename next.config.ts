@@ -1,12 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // यह सेटिंग Vercel को एरर इग्नोर करने के लिए मजबूर करेगी
   typescript: {
-    // !! WARN !!
-    // यह Vercel को TypeScript एरर इग्नोर करने को बोलेगा
     ignoreBuildErrors: true,
   },
   eslint: {
-    // यह ESLint एरर इग्नोर करेगा
     ignoreDuringBuilds: true,
   },
 };
