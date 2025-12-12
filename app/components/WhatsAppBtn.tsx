@@ -2,7 +2,7 @@ import React from 'react';
 
 const WhatsAppBtn = () => {
   // Apna WhatsApp Number yahan daalo (Country code ke saath, bina + sign ke)
-  const phoneNumber = "916388116241"; 
+  const phoneNumber = "916388162419"; 
   const message = "Hello Yatraksathi, I want to inquire about a tour package."; // Default message
 
   // WhatsApp Link banana

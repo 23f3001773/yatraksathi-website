@@ -39,7 +39,7 @@ const Packages = () => {
       id: 4,
       title: "DIVYA DHAM YATRA",
       subtitle: "Varanasi Ayodhya Prayagraj & Gaya Tour Packages",
-      image: "https://images.unsplash.com/photo-1598696564619-75a8947b4d9a?q=80&w=2070&auto=format&fit=crop", 
+      image: "/Chardham.jpg", 
       duration: "6 Days / 5 Nights",
       location: "India Spiritual",
       price: "₹12,000",
