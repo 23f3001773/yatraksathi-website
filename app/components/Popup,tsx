@@ -1,0 +1,118 @@
+"use client";
+import React, { useState } from 'react';
+import { db } from '../firebase'; // Firebase Import किया
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'; // डेटा सेव करने के फंक्शन्स
+export default function PopupForm({ onClose }) { // onClose prop agar modal band karna ho submit ke baad
+  const [status, setStatus] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setStatus("Sending...");
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    // 1. Data jo Firebase me jayega (Popup fields ke hisab se)
+    const enquiryData = {
+      fullname: formData.get("fullname"),
+      mobile: formData.get("mobile"),
+      destination: formData.get("destination"), // Popup me ye field thi
+      source: "Homepage Popup", // Taaki pata chale ye lead kahan se aayi
+      timestamp: serverTimestamp(),
+    };
+
+    try {
+      // ✅ Step A: Save to Firebase
+      await addDoc(collection(db, "enquiries"), enquiryData);
+      console.log("Saved to Database");
+
+      // ✅ Step B: Send Email via Web3Forms
+      // Note: "access_key" wahi purani wali use kar li maine jo tumne di thi
+      formData.append("access_key", "193942fe-328d-4ecf-9dab-0ccfc41c6b6b"); 
+      formData.append("subject", "New Lead from Popup Form!"); // Email ka subject
+
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        setStatus("Success! We will call you soon.");
+        form.reset(); // Form khali kar do
+        
+        // Optional: 2 second baad popup band kar do
+        setTimeout(() => {
+          if (onClose) onClose(); 
+        }, 2000);
+      } else {
+        setStatus("Email error, but data saved.");
+      }
+
+    } catch (error) {
+      console.error("Error:", error);
+      setStatus("Something went wrong.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-xl">
+      <h2 className="text-2xl font-bold text-orange-600 mb-2">Plan Your Dream Yatra!</h2>
+      <p className="text-gray-600 mb-4 text-sm">Get Exclusive Deals on Kashi & Ayodhya Packages</p>
+
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        
+        {/* Full Name */}
+        <div>
+          <input
+            type="text"
+            name="fullname"
+            placeholder="Full Name"
+            required
+            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-orange-500 text-black"
+          />
+        </div>
+
+        {/* Mobile Number */}
+        <div>
+          <input
+            type="number"
+            name="mobile"
+            placeholder="+91 Mobile Number"
+            required
+            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-orange-500 text-black"
+          />
+        </div>
+
+        {/* Destination */}
+        <div>
+          <input
+            type="text"
+            name="destination"
+            placeholder="Interested Destination (e.g. Ayodhya)"
+            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-orange-500 text-black"
+          />
+        </div>
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full bg-orange-600 text-white font-bold py-3 rounded hover:bg-orange-700 transition disabled:bg-gray-400"
+        >
+          {isSubmitting ? "Sending..." : "Get Free Quote Now"}
+        </button>
+
+        {/* Status Message */}
+        {status && (
+          <p className={`text-center text-sm font-semibold mt-2 ${status.includes("Success") ? "text-green-600" : "text-red-500"}`}>
+            {status}
+          </p>
+        )}
+      </form>
+    </div>
+  );
+}
